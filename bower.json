@@ -1,5 +1,5 @@
 {
-  "name": "mean",
+  "name": "Angularjs_front_end",
   "dependencies": {
     "jquery": "latest",
     "angular": "latest",
@@ -10,7 +10,6 @@
     "bootstrap": "latest",
     "angular-bootstrap": "latest",
     "angular-ui-router": "latest",
-    "web-bootstrap": "./node_modules/meanio/resources/web-bootstrap.js",
     "angular-ui-select": "latest",
     "angular-sanitize": "latest"
   }

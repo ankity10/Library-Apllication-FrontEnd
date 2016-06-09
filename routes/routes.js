@@ -1,7 +1,7 @@
 'use strict';
 
 //Setting up route
-angular.module('mean.articles').config(['$stateProvider',
+angular.module('root_app').config(['$stateProvider',
   function($stateProvider) {
 
     // states for my app

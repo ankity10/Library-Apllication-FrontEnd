@@ -1,62 +1,103 @@
 <!DOCTYPE html>
 <html ng-app='root_app'>
-	<head>
+<head>
 
-		<title>Angular api</title>
+    <title>Angular api</title>
 
-		<!-- ===================== styles starts ===================== -->
+    <!-- ===================== styles starts ===================== -->
 
-		<!-- bootstrap -->
-		<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen,projection" >
+    <!-- bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen,projection" >
 
-		<!-- angular-ui-select -->
-		<link href="bower_components/angular-ui-select/dist/select.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <!-- angular-ui-select -->
+    <link href="bower_components/angular-ui-select/dist/select.min.css" type="text/css" rel="stylesheet" media="screen,projection">
 
-		<!-- main stylesheet -->
-		<link  href="assets/css/main.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <!-- main stylesheet -->
+    <link  href="assets/css/main.css" type="text/css" rel="stylesheet" media="screen,projection">
 
-		<!-- ====================== styles ends ====================== -->
+    <!-- ====================== styles ends ====================== -->
 
-	</head>
+</head>
 
-	<body ng-cloak ng-controller='main'>
+<body ng-cloak>
 
-		
+<div class="main-body">
 
-		<h1>{{test}}</h1>
+    <div class="navigation">
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Angular API</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a ui-sref="home">Home</a></li>
+                        <li><a ui-sref="about">About</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a ui-sref="login">Login</a></li>
+                        <li><a ui-sref="signup">Sign up</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+    </div>
+
+    <div class="main-content">
+
+        <div ui-view>
+
+        </div>
+
+    </div>
+
+</div>
 
 
 
 
 
-		<!-- =========================== javascript starts ============================ -->
-
-		<!-- jquery -->
-		<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-
-		<!-- angular -->
-		<script type="text/javascript" src="bower_components/angular/angular.js"></script>
-
-		<script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
-
-		<script type="text/javascript" src="bower_components/angular-resource/angular-resource.min.js"></script>
-
-		<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
-
-		<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-
-		<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-
-		<script type="text/javascript" src="bower_components/angular-ui-select/dist/select.min.js"></script>
-
-		<script type="text/javascript" src="controllers/ctrl.js"></script>
 
 
 
-		<!-- bootstrap -->
-		<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- =========================== javascript starts ============================ -->
 
-		<!-- =========================== javascript ends ============================ -->
+<!-- jquery -->
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 
-	</body>
+<!-- angular -->
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+
+<script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+
+<script type="text/javascript" src="bower_components/angular-resource/angular-resource.min.js"></script>
+
+<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+
+<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+
+<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+<script type="text/javascript" src="bower_components/angular-ui-select/dist/select.min.js"></script>
+
+<script type="text/javascript" src="routes/routes.js"></script>
+<!--<script type="text/javascript" src="services/services.js"></script>-->
+<script type="text/javascript" src="controllers/ctrl.js"></script>
+
+
+
+
+<!-- bootstrap -->
+<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- =========================== javascript ends ============================ -->
+
+</body>
 </html>

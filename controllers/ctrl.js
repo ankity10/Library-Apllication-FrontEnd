@@ -1,10 +1,54 @@
 'use strict';
 
-var root_app = angular.module('root_app',[]);
+// var root_app = angular.module('root_app',['ui.router']);
 
-root_app.controller('main',['$scope',function($scope){
+root_app.controller('homeCtrl',['$scope',function($scope){
 
-  $scope.test = "Hello Ankit";
+
+
+}]);
+
+
+
+
+root_app.controller('loginCtrl',['$scope','$http', function ($scope,$http) {
+
+    $scope.login = function () {
+        // alert("login");
+        var postObject = new Object();
+        postObject.username = $("#login-username").val();
+        postObject.password = $("#login-password").val();
+
+        $http({
+            url:'http://localhost:3000/api/login/',
+            dataType:'json',
+            method:'POST',
+            data:postObject,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).success(function(response){
+            console.log("In success");
+            $scope.response = response;
+            console.log($scope.response);
+
+        }).error(function(error){
+            console.log("In error");
+            $scope.error = error;
+            console.log($scope.error);
+
+        });
+
+
+    };
+
+
+}]);
+
+
+
+root_app.controller('aboutCtrl',['$scope', function ($scope) {
+
 
 
 }]);

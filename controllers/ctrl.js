@@ -32,6 +32,18 @@ root_app.controller('loginCtrl',['$scope','$http', function ($scope,$http) {
             $scope.response = response;
             console.log($scope.response);
 
+            $http({
+                url:'http://localhost:3000/api/dash',
+                method:"GET",
+                headers:{
+                    "Authorization":response.token
+                }
+            })
+
+                .success(function (res) {
+                    console.log(res);
+                })
+
         }).error(function(error){
             console.log("In error");
             $scope.error = error;

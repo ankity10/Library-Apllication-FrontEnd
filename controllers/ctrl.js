@@ -61,6 +61,33 @@ root_app.controller('loginCtrl',['$scope','$http', function ($scope,$http) {
 }]);
 
 
+root_app.controller('forget_passwordCtrl',['$scope','$http',function ($scope,$http) {
+
+    $scope.forget_password = function () {
+        var postObject = new Object();
+        postObject.username = $("#email").val();
+        $http({
+            url:'http://localhost:3000/api/resetpassword/',
+            dataType:'json',
+            method:'POST',
+            data:postObject,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).success(function(response){
+            // console.log("In reset");
+            $scope.response = response;
+            console.log($scope.response);
+
+        }).error(function(error){
+            console.log("In error");
+            $scope.error = error;
+            console.log($scope.error);
+
+        });
+    };
+}]);
+
 root_app.controller('signupCtrl',['$scope', '$http',function ($scope,$http) {
 
     $scope.signup = function () {

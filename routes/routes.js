@@ -44,7 +44,15 @@ root_app.config(['$stateProvider','$urlRouterProvider','$httpProvider',
             url:'/about',
             templateUrl:'views/about.html',
             controller:'aboutCtrl'
-        });
+        })
+
+      .state('forget_password',{
+          url:'/forget_password',
+          templateUrl:'views/forget_password.html',
+          controller:'forget_passwordCtrl'
+
+      });
+
 
 
       // .state('all articles', {

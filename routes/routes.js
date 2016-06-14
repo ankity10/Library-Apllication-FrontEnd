@@ -46,6 +46,8 @@ root_app.config(['$stateProvider','$urlRouterProvider','$httpProvider',
             controller:'aboutCtrl'
         })
 
+       
+
       .state('forget_password',{
           url:'/forget_password',
           templateUrl:'views/forget_password.html',

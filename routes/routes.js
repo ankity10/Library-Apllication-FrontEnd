@@ -37,7 +37,7 @@ root_app.config(['$stateProvider','$urlRouterProvider','$httpProvider',
         .state('signup',{
             url:'/signup',
             templateUrl:'views/signup.html',
-            controller:'loginCtrl'
+            controller:'signupCtrl'
         })
 
         .state('about',{

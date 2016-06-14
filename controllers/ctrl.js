@@ -13,6 +13,7 @@ root_app.controller('homeCtrl',['$scope',function($scope){
 
 root_app.controller('loginCtrl',['$scope','$http', function ($scope,$http) {
 
+
     $scope.login = function () {
         // alert("login");
         var postObject = new Object();
@@ -55,8 +56,56 @@ root_app.controller('loginCtrl',['$scope','$http', function ($scope,$http) {
     };
 
 
+
+
 }]);
 
+
+root_app.controller('signupCtrl',['$scope', '$http',function ($scope,$http) {
+
+    $scope.signup = function () {
+        var postObject = new Object();
+        postObject.email = $("#email").val();
+        postObject.username = $("#username").val();
+        postObject.name = $("#firstname").val() + $("#lastname").val();
+        postObject.password = $("#login-password").val();
+        postObject.mobile = $("#mobile").val();
+        postObject.country = $("#country").val();
+        // console.log('in signup');
+        $http({
+            url:'http://localhost:3000/api/register/',
+            dataType:'json',
+            method:'POST',
+            data:postObject,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).success(function(response){
+            // console.log("In register");
+            $scope.response = response;
+            console.log($scope.response);
+
+            // $http({
+            //     url:'http://localhost:3000/api/dash',
+            //     method:"GET",
+            //     headers:{
+            //         "Authorization":response.token
+            //     }
+            // }).success(function (res) {
+            //         console.log(res);
+            //     })
+
+        }).error(function(error){
+            console.log("In error");
+            $scope.error = error;
+            console.log($scope.error);
+
+        });
+
+
+    };
+    
+}]);
 
 
 root_app.controller('aboutCtrl',['$scope', function ($scope) {

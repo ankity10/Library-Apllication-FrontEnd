@@ -34,6 +34,17 @@ root_app.config(['$stateProvider','$urlRouterProvider','$httpProvider',
 
         })
 
+        .state('genre',{
+            url:'/genre',
+            templateUrl:'views/genre.html',
+            controller:'genreCtrl'
+        })
+
+        .state('verify',{
+            url:'/verify',
+            templateUrl:'views/verify.html'
+        })
+
         .state('signup',{
             url:'/signup',
             templateUrl:'views/signup.html',

@@ -11,11 +11,78 @@ root_app.controller('homeCtrl',['$scope',function($scope){
 
 
 
-root_app.controller('loginCtrl',['$scope','$http', function ($scope,$http) {
+// root_app.controller('loginCtrl',['$scope','$http', function ($scope,$http) {
+//
+//
+//     $scope.login = function () {
+//         // alert("login");
+//         var postObject = new Object();
+//         postObject.username = $("#login-username").val();
+//         postObject.password = $("#login-password").val();
+//
+//         $http({
+//             url:'http://localhost:3000/api/login/',
+//             dataType:'json',
+//             method:'POST',
+//             data:postObject,
+//             useDefaultXhrHeader: false,
+//             headers: {
+//                 "Content-Type": "application/json"
+//             }
+//         }).success(function(response){
+//             console.log("In success");
+//             $scope.response = response;
+//             console.log($scope.response);
+//
+//             // $http({
+//             //     url:'http://localhost:3000/api/dash',
+//             //     method:"GET",
+//             //     headers:{
+//             //         "Authorization":response.token
+//             //     }
+//             // })
+//             //
+//             //     .success(function (res) {
+//             //         console.log(res);
+//             //     })
+//
+//         }).error(function(error){
+//             console.log("In error");
+//             $scope.error = error;
+//             console.log($scope.error);
+//
+//         });
+//
+//
+//     };
+//
+//
+//
+//     // $scope.googlelogin = function () {
+//     //
+//     //     console.log("In google login");
+//     //     $http({
+//     //         url: 'http://localhost:3000/api/auth/google',
+//     //         method: "GET"
+//     //     }).success(function (response) {
+//     //         console.log("In success");
+//     //         $scope.response = response;
+//     //         console.log($scope.response);
+//     //     }).error(function(error){
+//     //         console.log("In error");
+//     //         $scope.error = error;
+//     //         console.log($scope.error);
+//     //
+//     //     });
+//     // };
+//
+// }]);
 
+
+root_app.controller('loginCtrl',['$scope','$http','$location','$rootScope', function ($scope, $http, $location, $rootScope) {
 
     $scope.login = function () {
-        // alert("login");
+
         var postObject = new Object();
         postObject.username = $("#login-username").val();
         postObject.password = $("#login-password").val();
@@ -28,24 +95,44 @@ root_app.controller('loginCtrl',['$scope','$http', function ($scope,$http) {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).success(function(response){
-            console.log("In success");
-            $scope.response = response;
-            console.log($scope.response);
+        })
+            .success(function(response){
 
-            $http({
-                url:'http://localhost:3000/api/dash',
-                method:"GET",
-                headers:{
-                    "Authorization":response.token
+                console.log("In success");
+
+                $scope.response = response;
+
+                console.log($scope.response);
+
+                //var token_slice = response.token.split('.');
+                //var new_token = token_slice[0] + token_slice[1];
+
+                if(response.success){
+
+                    $rootScope.user = {};
+                    $rootScope.user.authenticated = true;
+
+                    $location.path('/genre');
+
+                    $http({
+                        url:'http://localhost:3000/api/dash',
+                        method:"GET",
+                        headers:{
+                            "Authorization":response.token
+                        }
+                    })
+
+                        .success(function (res) {
+                            console.log(res);
+                        })
+
                 }
-            })
 
-                .success(function (res) {
-                    console.log(res);
-                })
+                else{
+                    $location.path('/verify');
+                }
 
-        }).error(function(error){
+            }).error(function(error){
             console.log("In error");
             $scope.error = error;
             console.log($scope.error);
@@ -55,8 +142,8 @@ root_app.controller('loginCtrl',['$scope','$http', function ($scope,$http) {
 
     };
 
-}]);
 
+}]);
 
 root_app.controller('forget_passwordCtrl',['$scope','$http',function ($scope,$http) {
 
@@ -92,12 +179,12 @@ root_app.controller('signupCtrl',['$scope', '$http',function ($scope,$http) {
         postObject.email = $("#email").val();
         postObject.username = $("#username").val();
         postObject.name = $("#firstname").val() + $("#lastname").val();
-        postObject.password = $("#login-password").val();
+        postObject.password = $("#login_password").val();
         postObject.mobile = $("#mobile").val();
         postObject.country = $("#country").val();
-        // console.log('in signup');
+        console.log(postObject.password);
         $http({
-            url:'http://localhost:3000/api/register/',
+            // url:'http://localhost:3000/api/register/',
             dataType:'json',
             method:'POST',
             data:postObject,
@@ -165,6 +252,9 @@ root_app.controller('signupCtrl',['$scope', '$http',function ($scope,$http) {
     
 }]);
 
+root_app.controller('genreCtrl',['$scope',function ($scope) {
+    
+}]);
 
 root_app.controller('aboutCtrl',['$scope', function ($scope) {
 

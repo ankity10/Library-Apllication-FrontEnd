@@ -1,14 +1,34 @@
 'use strict';
 
 
-var root_app = angular.module('root_app',['ui.router']);
+var root_app = angular.module('root_app',['ui.router','angularFileUpload']);
 
-//Setting up route
+
+
+// ========================== directives start ===============================
+root_app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
+// ========================== directives end ===============================
+
+
+
+
+//=================== Setting up route ======================================
 root_app.config(['$stateProvider','$urlRouterProvider','$httpProvider',
   function($stateProvider,$urlRouterProvider,$httpProvider) {
-
-
-
 
       $httpProvider.defaults.useXDomain = true;
       // $httpProvider.defaults.withCredentials = true;
@@ -59,46 +79,21 @@ root_app.config(['$stateProvider','$urlRouterProvider','$httpProvider',
 
        
 
-      .state('forget_password',{
+        .state('forget_password',{
           url:'/forget_password',
           templateUrl:'views/forget_password.html',
           controller:'forget_passwordCtrl'
 
-      });
+      })
+        .state('upload_test',{
+            url:'/upload-test',
+            templateUrl:'views/upload_test.html',
+            controller:'upload_test'
+        });
 
-
-
-      // .state('all articles', {
-      //   url: '/articles',
-      //   templateUrl: '/articles/views/list.html',
-      //   requiredCircles : {
-      //     circles: ['authenticated'],
-      //     denyState: 'auth.login'
-      //   }
-      // })
-      // .state('create article', {
-      //   url: '/articles/create',
-      //   templateUrl: '/articles/views/create.html',
-      //   requiredCircles : {
-      //     circles: ['can create content']
-      //   }
-      // })
-      // .state('edit article', {
-      //   url: '/articles/:articleId/edit',
-      //   templateUrl: '/articles/views/edit.html',
-      //   requiredCircles : {
-      //     circles: ['can edit content']
-      //   }
-      // })
-      // .state('article by id', {
-      //   url: '/articles/:articleId',
-      //   templateUrl: '/articles/views/view.html',
-      //   requiredCircles : {
-      //     circles: ['authenticated'],
-      //     denyState: 'auth.login'
-      //   }
-      // });
   }
 ]);
+
+// =================== route ends ===========================================
 
 

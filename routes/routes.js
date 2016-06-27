@@ -1,28 +1,5 @@
 'use strict';
 
-
-var root_app = angular.module('root_app', ['ui.router', 'angularFileUpload']);
-
-
-// ========================== directives start ===============================
-root_app.directive('fileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-            var model = $parse(attrs.fileModel);
-            var modelSetter = model.assign;
-
-            element.bind('change', function () {
-                scope.$apply(function () {
-                    modelSetter(scope, element[0].files[0]);
-                });
-            });
-        }
-    };
-}]);
-// ========================== directives end ===============================
-
-
 //=================== Setting up route ======================================
 root_app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
     function ($stateProvider, $urlRouterProvider, $httpProvider) {

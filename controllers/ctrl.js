@@ -10,7 +10,7 @@ root_app.controller('homeCtrl', ['$scope', function ($scope) {
 root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', function ($scope, $http, $location, $rootScope) {
 
     $scope.login = function () {
-
+        GLOBAL.test();
         var postObject = new Object();
         postObject.username = $("#login-username").val();
         postObject.password = $("#login-password").val();

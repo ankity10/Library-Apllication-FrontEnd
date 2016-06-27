@@ -7,60 +7,148 @@ root_app.controller('homeCtrl', ['$scope', function ($scope) {
 
 }]);
 
-root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', function ($scope, $http, $location, $rootScope) {
+root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', '$localStorage', 'Auth', function ($scope, $http, $location, $rootScope, $localStorage, Auth) {
 
-    $scope.login = function () {
-        GLOBAL.test();
-        var postObject = new Object();
-        postObject.username = $("#login-username").val();
-        postObject.password = $("#login-password").val();
+    var globals = new Globals();
+    
+    $scope.test = function () {
 
-        $http({
-            url: 'http://localhost:3000/api/login/',
-            dataType: 'json',
-            method: 'POST',
-            data: postObject,
-            headers: {
-                "Content-Type": "application/json"
-            }
+        Auth.me(function (res) {
+            alert("Test In success ");
+
+        }, function () {
+            alert("Test In error ");
         })
-            .success(function (response) {
-                // console.log("In success");
-                $scope.response = response;
-                // console.log($scope.response);
+    };
+    
+    $scope.login = function () {
 
-                if (response.success) {
-                    $rootScope.user = {};
-                    $rootScope.user.authenticated = true;
-                    $location.path('/genre');
-                    $http({
-                        url: 'http://localhost:3000/api/dash',
-                        method: "GET",
-                        headers: {
-                            "Authorization": response.token
-                        }
-                    })
-                        .success(function (res) {
-                            console.log(res);
-                        })
-                }
-                else {
-                    $location.path('/verify');
-                }
+        var formData = {
+            username: $("#login-username").val(),
+            password: $("#login-password").val()
+        };
 
-            })
+        Auth.signin(formData, function (res) {
+            if (res.success == false) {
+                alert(res.message)
+            } else {
+                $localStorage.token = res.token;
+                globals.stateUpdate($rootScope, Auth);
+                $location.path('/genre');
 
-            .error(function (error) {
-                console.log("In error");
-                $scope.error = error;
-                console.log($scope.error);
+            }
 
-            });
-
-
+        }, function () {
+            $rootScope.error = "Failed to signin";
+        })
     };
 
+    $scope.signup = function () {
 
+        var formData = {};
+        formData.email = $("#email").val();
+        formData.username = $("#username").val();
+        formData.name = $("#firstname").val() + $("#lastname").val();
+        formData.password = $("#login_password").val();
+        formData.mobile = $("#mobile").val();
+        formData.country = $("#country").val();
+
+        Auth.signup(formData, function (res) {
+            if (res.success == false) {
+                alert(res.message);
+            } else {
+                $localStorage.token = res.token;
+                $rootScope.userAuthenticated = true;
+                $location.path('/genre');
+
+            }
+        }, function () {
+            $rootScope.error = "Failed to signup";
+        });
+    };
+
+    $scope.me = function () {
+        Auth.me(function (res) {
+            console.log(res);
+            $scope.myDetails = res.user;
+        }, function () {
+            $rootScope.error = "Failed to fetch details";
+        })
+    };
+
+    $scope.logout = function () {
+        Auth.logout(function () {
+            globals.stateUpdate($rootScope, Auth);
+            $location.path('/');
+        }, function () {
+            alert("Failed to logout!");
+        })
+    };
+
+    $scope.token = $localStorage.token;
+
+
+    // var postObject = new Object();
+    // postObject.username = $("#login-username").val();
+    // postObject.password = $("#login-password").val();
+    //
+    // $http({
+    //     url: 'http://localhost:3000/api/login/',
+    //     dataType: 'json',
+    //     method: 'POST',
+    //     data: postObject,
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     }
+    // })
+    //     .success(function (response) {
+    //         // console.log("In success");
+    //         $scope.response = response;
+    //         // console.log($scope.response);
+    //
+    //         if (response.success) {
+    //             $rootScope.user = {};
+    //             $rootScope.user.authenticated = true;
+    //             $location.path('/genre');
+    //             $http({
+    //                 url: 'http://localhost:3000/api/dash',
+    //                 method: "GET",
+    //                 headers: {
+    //                     "Authorization": response.token
+    //                 }
+    //             })
+    //                 .success(function (res) {
+    //                     console.log(res);
+    //                 })
+    //         }
+    //         else {
+    //             $location.path('/verify');
+    //         }
+    //
+    //     })
+    //
+    //     .error(function (error) {
+    //         console.log("In error");
+    //         $scope.error = error;
+    //         console.log($scope.error);
+    //
+    //     });
+    //
+
+    // };
+
+}]);
+
+root_app.controller('navCtrl', ['$scope', '$location', 'Auth', function ($scope, $location, Auth) {
+
+    
+    $scope.logout = function () {
+        Auth.logout(function () {
+            $location.path('/');
+        })
+    }
+
+    
 }]);
 
 root_app.controller('forget_passwordCtrl', ['$scope', '$http', function ($scope, $http) {

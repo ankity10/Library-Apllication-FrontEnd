@@ -4,7 +4,7 @@
 'use strict';
 
 
-var root_app = angular.module('root_app', ['ui.router', 'angularFileUpload']);
+var root_app = angular.module('root_app', ['ui.router', 'angularFileUpload', 'ngStorage']);
 
 
 // ========================== directives start ===============================
@@ -29,10 +29,40 @@ root_app.directive('fileModel', ['$parse', function ($parse) {
 // ANGULAR CONFIGURATION START
 // =========================================================================
 
-root_app.run(function ($http) {
-    // $http.defaults.header.common.Authorization =
+root_app.config(['$httpProvider', function ($httpProvider) {
 
-})
+    $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
+        return {
+            'request': function (config) {
+                config.headers = config.headers || {};
+                if ($localStorage.token) {
+                    config.headers.Authorization = $localStorage.token;
+                }
+                return config;
+            },
+            'responseError': function(response) {
+                if(response.status === 401 || response.status === 403) {
+                    $location.path('/login');
+                }
+                return $q.reject(response);
+            }
+        };
+    }]);
+}]);
+
+
+root_app.run(['$http','$rootScope','Auth', function ($http, $rootScope, Auth) {
+    // console.log("cool");
+
+    
+
+    // console.log($rootScope.userAuthenticated);
+    // console.log(Auth.loggedInUser());
+    
+    var global = new Globals();
+    global.navFix();
+    global.stateUpdate($rootScope, Auth);
+}]);
 
 // ANGULAR CONFIGURATION END
 // *************************************************************************
@@ -40,15 +70,33 @@ root_app.run(function ($http) {
 
 // GLOBAL HELPERS START
 // =========================================================================
-    var GLOBAL = function () {
 
-        return {
-
-            test: function () {
-                console.log("Test function")
-            }
-        }
-    }
+// var get_token = function () {
+//     return window.localStorage.getItem("k");
+// };
+//
+// var set_token = function (token) {
+//     if(typeof (Storage !== undefined)){
+//         window.localStorage.setItem("k", token);
+//         return true;
+//     }
+//     else {
+//         return false;
+//     }
+// }
+//
+// function Globals () {
+//
+//     return {
+//         set_token: function (token) {
+//             set_token(token);
+//         },
+//
+//         get_token: function () {
+//            return get_token();
+//         }
+//     }
+// };
 
 
 // GLOBAL HELPERS END

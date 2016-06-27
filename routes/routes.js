@@ -16,41 +16,65 @@ root_app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
         $stateProvider
             .state('home', {
                 url: '/',
-                templateUrl: 'views/home.html',
-                controller: 'homeCtrl'
-
+                views: {
+                    "main": {
+                        templateUrl:  'views/home.html',
+                        controller: 'homeCtrl'
+                    }
+                }
             })
 
             .state('login', {
                 url: '/login',
-                templateUrl: 'views/login.html',
-                controller: 'loginCtrl'
-
+                views:{
+                    'main': {
+                        templateUrl: 'views/login.html',
+                        controller: 'loginCtrl'
+                    },
+                }
             })
 
             .state('genre', {
                 url: '/genre',
-                templateUrl: 'views/genre.html',
-                controller: 'genreCtrl'
+                views:{
+                    'main': {
+                        templateUrl: 'views/genre.html',
+                        controller: 'genreCtrl',
+                        resolve: {
+                            user: ['Auth', function (Auth) {
+                                return Auth.isAuthed();
+                            }]
+                        }
+
+                    },
+                }
             })
 
             .state('verify', {
                 url: '/verify',
-                templateUrl: 'views/verify.html'
+                templateUrl: 'views/verify.html',
+
             })
 
             .state('signup', {
                 url: '/signup',
-                templateUrl: 'views/signup.html',
-                controller: 'signupCtrl'
+                views:{
+                    'main': {
+                        templateUrl: 'views/signup.html',
+                        controller: 'loginCtrl'
+                    },
+                }
             })
 
             .state('about', {
                 url: '/about',
-                templateUrl: 'views/about.html',
-                controller: 'aboutCtrl'
+                views: {
+                    "main": {
+                        templateUrl: 'views/about.html',
+                        controller: 'aboutCtrl'
+                    }
+                }
             })
-
 
             .state('forget_password', {
                 url: '/forget_password',
@@ -58,11 +82,18 @@ root_app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
                 controller: 'forget_passwordCtrl'
 
             })
+
             .state('upload_test', {
                 url: '/upload-test',
                 templateUrl: 'views/upload_test.html',
                 controller: 'upload_test'
-            });
+            })
+
+            .state('test', {
+                url: '/test',
+                templateUrl: 'views/test.html',
+                controller: 'loginCtrl'
+        });
 
     }
 ]);

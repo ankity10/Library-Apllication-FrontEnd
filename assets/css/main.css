@@ -68,7 +68,7 @@
 
 
 
-/*========================= signin  styles starts ===========================*/
+/*========================= signin styles starts ===========================*/
 
 .form-signin {
     max-width: 330px;
@@ -105,14 +105,18 @@
     border-top-right-radius: 0;
 }
 
-/*========================= signin  styles ends ===========================*/
+/*========================= signin styles ends ===========================*/
 
 
 
+/*========================= pdf viewer styles starts ===========================*/
 
 
+.pdf-controls { width: 100%; display: block; background: #eee; padding: 1em;}
+.fixed { position: fixed; top: 7.5%; left: 24%; z-index: 100; width: 65%; padding: 1em; background: rgba(238, 238, 238,.9); }
 
 
+/*========================= pdf viewer styles ends ===========================*/
 
 
 

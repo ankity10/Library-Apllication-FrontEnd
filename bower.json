@@ -14,5 +14,9 @@
     "angular-sanitize": "latest",
     "ng-file-upload-shim": "^12.0.4",
     "pdfjs-dist": "^1.5.309"
+  },
+  "resolutions": {
+    "angular": "1.5.6",
+    "pdfjs-dist": "^1.5.309"
   }
 }

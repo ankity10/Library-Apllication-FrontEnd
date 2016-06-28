@@ -1,0 +1,32 @@
+<div class="wrapper" ng-controller="DocCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                <h2>{{pdfName}}</h2>
+                <nav ng-class="getNavStyle(scroll)" class="pdf-controls">
+                    <button ng-click="goPrevious()">&lt;</button>
+                    <button ng-click="goNext()">&gt;</button>
+
+                    <button ng-click="zoomIn()">+</button>
+                    <button ng-click="fit()">100%</button>
+                    <button ng-click="zoomOut()">-</button>
+
+                    <button ng-click="rotate()">90</button>
+
+                    <span>Page: </span>
+                    <input type="text" min="1" ng-model="pageNum" class="ng-pristine ng-untouched ng-valid">
+                    <span class="ng-binding"> / {{pages}}</span>
+
+                    &nbsp;&nbsp;
+                    <!--<span>Document URL: </span>-->
+                    <!--<input type="text" ng-model="pdfUrl" class="ng-pristine ng-untouched ng-valid">-->
+
+                </nav>
+                <hr>
+
+                <ng-pdf template-url="views/pdfviewer.html" canvasid="pdf" scale="page-fit"></ng-pdf>
+            </div>
+        </div>
+    </div>
+</div>
+

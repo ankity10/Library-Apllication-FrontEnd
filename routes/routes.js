@@ -62,6 +62,11 @@ root_app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
                 url: '/upload-test',
                 templateUrl: 'views/upload_test.html',
                 controller: 'upload_test'
+            })
+            .state('pdf',{
+               url : '/pdf',
+                templateUrl : 'views/pdf_view.html',
+                controller : 'DocCtrl'
             });
 
     }

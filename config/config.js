@@ -4,7 +4,7 @@
 'use strict';
 
 
-var root_app = angular.module('root_app', ['ui.router', 'angularFileUpload']);
+var root_app = angular.module('root_app', ['ui.router', 'angularFileUpload' , 'pdf']);
 
 
 // ========================== directives start ===============================

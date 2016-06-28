@@ -170,6 +170,38 @@ root_app.controller('signupCtrl', ['$scope', '$http', function ($scope, $http) {
 
 }]);
 
+root_app.controller('DocCtrl', function($scope) {
+
+    // $scope.pdfUrl = 'pdf/j3.pdf';
+    // console.log('asd');
+    // $scope.httpHeaders = { Authorization: 'Bearer some-aleatory-token' };
+
+    $scope.pdfName = 'Relativity: The Special and General Theory by Albert Einstein';
+    $scope.pdfUrl = 'pdf/j3.pdf';
+    $scope.scroll = 0;
+    $scope.loading = 'loading';
+    $scope.pages = 2; 
+
+    $scope.getNavStyle = function(scroll) {
+        if(scroll > 100)
+            return 'pdf-controls fixed';
+        else return 'pdf-controls';
+    }
+
+    $scope.onError = function(error) {
+        console.log('in error');
+        console.log(error);
+    }
+
+    $scope.onLoad = function() {
+        $scope.loading = '';
+    }
+
+    $scope.onProgress = function(progress) {
+        console.log(progress);
+    }
+});
+
 root_app.controller('genreCtrl', ['$scope', function ($scope) {
 
 }]);

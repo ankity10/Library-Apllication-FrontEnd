@@ -4,7 +4,11 @@
 'use strict';
 
 
+<<<<<<< HEAD
 var root_app = angular.module('root_app', ['ui.router', 'angularFileUpload', 'ngStorage']);
+=======
+var root_app = angular.module('root_app', ['ui.router', 'angularFileUpload' , 'pdf']);
+>>>>>>> anurag
 
 
 // ========================== directives start ===============================

@@ -88,12 +88,20 @@ root_app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
                 templateUrl: 'views/upload_test.html',
                 controller: 'upload_test'
             })
+<<<<<<< HEAD
 
             .state('test', {
                 url: '/test',
                 templateUrl: 'views/test.html',
                 controller: 'loginCtrl'
         });
+=======
+            .state('pdf',{
+               url : '/pdf',
+                templateUrl : 'views/pdf_view.html',
+                controller : 'DocCtrl'
+            });
+>>>>>>> anurag
 
     }
 ]);

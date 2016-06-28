@@ -51,7 +51,7 @@ root_app.config(['$httpProvider', function ($httpProvider) {
 }]);
 
 
-root_app.run(['$http','$rootScope','Auth', function ($http, $rootScope, Auth) {
+root_app.run(['$http','$rootScope','Auth', 'Book', function ($http, $rootScope, Auth, Book) {
     // console.log("cool");
 
     
@@ -62,6 +62,13 @@ root_app.run(['$http','$rootScope','Auth', function ($http, $rootScope, Auth) {
     var global = new Globals();
     global.navFix();
     global.stateUpdate($rootScope, Auth);
+    
+    // Book.all(function (res) {
+    //     console.log(res);
+    // }, function () {
+    //     console.log("error in fetching books");
+    // })
+    
 }]);
 
 // ANGULAR CONFIGURATION END

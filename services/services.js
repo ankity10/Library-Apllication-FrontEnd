@@ -1,11 +1,16 @@
 'use strict';
 
-root_app.factory('Auth', ['$http', '$localStorage', '$rootScope', function($http, $localStorage, $rootScope){
+root_app.factory('settings', function () {
+    var self = this;
+    self.apiUrl = 'http://localhost:3000/api';
+    return self;
+});
+
+root_app.factory('User', ['$http', '$localStorage', '$rootScope','settings', function($http, $localStorage, $rootScope, settings){
 
     var globals = new Globals();
-    var baseUrl = "http://localhost:3000/api";
+    var baseUrl = settings.apiUrl;
 
-  
     function getUserFromToken() {
         var token = $localStorage.token;
         var user = undefined;
@@ -16,7 +21,6 @@ root_app.factory('Auth', ['$http', '$localStorage', '$rootScope', function($http
         }
         return user;
     }
-
 
     return {
         signup: function (data, success, error) {
@@ -47,3 +51,30 @@ root_app.factory('Auth', ['$http', '$localStorage', '$rootScope', function($http
     }
 }]);
 
+root_app.factory('Book', ['$http', '$rootScope','settings', function($http, $rootScope, settings) {
+   
+    var baseUrl = settings.apiUrl;
+    var self = this;
+    var talkingPath = '/books';
+    
+    self.all = function (success, error) {
+        return $http.get(baseUrl + talkingPath).success(success).error(error);
+    }
+    
+    self.create = function (book) {
+        return $http.post(baseUrl + talkingPath, book);
+    }
+    
+    self.fetch = function (bookId, success, error) {
+        return $http.get(baseUrl + talkingPath + '/' + bookId).success(success).error(error);
+    }
+    self.update = function (bookId, success, error) {
+        return $http.post(baseUrl + talkingPath, bookId).success(success).error(error);
+    }
+    
+    self.delete = function (bookId, success, error) {
+        return $http.post(baseUrl + talkingPath, bookId).success(success).error(error);
+    }
+    
+    return self;
+}]);

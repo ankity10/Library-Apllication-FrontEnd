@@ -7,13 +7,13 @@ root_app.controller('homeCtrl', ['$scope', function ($scope) {
 
 }]);
 
-root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', '$localStorage', 'Auth', function ($scope, $http, $location, $rootScope, $localStorage, Auth) {
+root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', '$localStorage', 'User', function ($scope, $http, $location, $rootScope, $localStorage, User) {
 
     var globals = new Globals();
     
     $scope.test = function () {
 
-        Auth.me(function (res) {
+        User.me(function (res) {
             alert("Test In success ");
 
         }, function () {
@@ -28,12 +28,12 @@ root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', 
             password: $("#login-password").val()
         };
 
-        Auth.signin(formData, function (res) {
+        User.signin(formData, function (res) {
             if (res.success == false) {
                 alert(res.message)
             } else {
                 $localStorage.token = res.token;
-                globals.stateUpdate($rootScope, Auth);
+                globals.stateUpdate($rootScope, User);
                 $location.path('/genre');
 
             }
@@ -53,12 +53,12 @@ root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', 
         formData.mobile = $("#mobile").val();
         formData.country = $("#country").val();
 
-        Auth.signup(formData, function (res) {
+        User.signup(formData, function (res) {
             if (res.success == false) {
                 alert(res.message);
             } else {
                 $localStorage.token = res.token;
-                $rootScope.userAuthenticated = true;
+                $rootScope.userUserenticated = true;
                 $location.path('/genre');
 
             }
@@ -68,7 +68,7 @@ root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', 
     };
 
     $scope.me = function () {
-        Auth.me(function (res) {
+        User.me(function (res) {
             console.log(res);
             $scope.myDetails = res.user;
         }, function () {
@@ -77,8 +77,8 @@ root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', 
     };
 
     $scope.logout = function () {
-        Auth.logout(function () {
-            globals.stateUpdate($rootScope, Auth);
+        User.logout(function () {
+            globals.stateUpdate($rootScope, User);
             $location.path('/');
         }, function () {
             alert("Failed to logout!");
@@ -141,7 +141,6 @@ root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', 
 
 root_app.controller('navCtrl', ['$scope', '$location', 'Auth', function ($scope, $location, Auth) {
 
-    
     $scope.logout = function () {
         Auth.logout(function () {
             $location.path('/');

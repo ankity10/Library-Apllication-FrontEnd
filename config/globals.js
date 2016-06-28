@@ -9,8 +9,8 @@ var handleNavClick = function () {
     })
 }
 
-var stateUpdate = function ($rootScope, Auth) {
-    if(Auth.loggedInUser() !== undefined){
+var stateUpdate = function ($rootScope, User) {
+    if(User.loggedInUser() !== undefined){
 
         $rootScope.userAuthenticated = true;
 
@@ -19,6 +19,10 @@ var stateUpdate = function ($rootScope, Auth) {
         $rootScope.userAuthenticated = false;
     }
 }
+
+
+
+
 function Globals() {
 
     return {

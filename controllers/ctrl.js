@@ -35,7 +35,7 @@ root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', 
                 $localStorage.token = res.token;
                 globals.stateUpdate($rootScope, User);
                 $location.path('/genre');
-
+                alert("IN login");
             }
 
         }, function () {
@@ -139,10 +139,10 @@ root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', 
 
 }]);
 
-root_app.controller('navCtrl', ['$scope', '$location', 'Auth', function ($scope, $location, Auth) {
+root_app.controller('navCtrl', ['$scope', '$location', 'User', function ($scope, $location, User) {
 
     $scope.logout = function () {
-        Auth.logout(function () {
+        User.logout(function () {
             $location.path('/');
         })
     }

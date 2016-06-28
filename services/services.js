@@ -10,6 +10,7 @@ root_app.factory('User', ['$http', '$localStorage', '$rootScope','settings', fun
 
     var globals = new Globals();
     var baseUrl = settings.apiUrl;
+    var path = '/user';
 
     function getUserFromToken() {
         var token = $localStorage.token;
@@ -24,13 +25,13 @@ root_app.factory('User', ['$http', '$localStorage', '$rootScope','settings', fun
 
     return {
         signup: function (data, success, error) {
-            $http.post(baseUrl + '/register', data).success(success).error(error)
+            $http.post(baseUrl + path + '/auth/signup', data).success(success).error(error)
         },
         signin: function (data, success, error) {
-            $http.post(baseUrl + '/login', data).success(success).error(error)
+            $http.post(baseUrl + path + '/auth/login', data).success(success).error(error)
         },
         me: function (success, error) {
-            $http.get(baseUrl + '/me').success(success).error(error)
+            $http.get(baseUrl + path + '/me').success(success).error(error)
         },
         logout: function (success) {
             // changeUser({});
@@ -47,6 +48,12 @@ root_app.factory('User', ['$http', '$localStorage', '$rootScope','settings', fun
         },
         loggedInUser: function () {
             return getUserFromToken();
+        },
+        update: function (user, success, error) {
+            $http.post(baseUrl + path + '/me', user).success(success).error(error);
+        },
+        resetPassword: function () {
+            
         }
     }
 }]);
@@ -55,25 +62,25 @@ root_app.factory('Book', ['$http', '$rootScope','settings', function($http, $roo
    
     var baseUrl = settings.apiUrl;
     var self = this;
-    var talkingPath = '/books';
+    var path = '/books';
     
     self.all = function (success, error) {
-        return $http.get(baseUrl + talkingPath).success(success).error(error);
+        return $http.get(baseUrl + path).success(success).error(error);
     }
     
     self.create = function (book) {
-        return $http.post(baseUrl + talkingPath, book);
+        return $http.post(baseUrl + path, book);
     }
     
     self.fetch = function (bookId, success, error) {
-        return $http.get(baseUrl + talkingPath + '/' + bookId).success(success).error(error);
+        return $http.get(baseUrl + path + '/' + bookId).success(success).error(error);
     }
     self.update = function (bookId, success, error) {
-        return $http.post(baseUrl + talkingPath, bookId).success(success).error(error);
+        return $http.post(baseUrl + path, bookId).success(success).error(error);
     }
     
     self.delete = function (bookId, success, error) {
-        return $http.post(baseUrl + talkingPath, bookId).success(success).error(error);
+        return $http.post(baseUrl + path, bookId).success(success).error(error);
     }
     
     return self;

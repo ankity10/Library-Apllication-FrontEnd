@@ -41,8 +41,8 @@ root_app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
                         templateUrl: 'views/genre.html',
                         controller: 'genreCtrl',
                         resolve: {
-                            user: ['Auth', function (Auth) {
-                                return Auth.isAuthed();
+                            user: ['User', function (User) {
+                                return User.isAuthed();
                             }]
                         }
 

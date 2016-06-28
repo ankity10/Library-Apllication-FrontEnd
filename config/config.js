@@ -51,7 +51,7 @@ root_app.config(['$httpProvider', function ($httpProvider) {
 }]);
 
 
-root_app.run(['$http','$rootScope','Auth', 'Book', function ($http, $rootScope, Auth, Book) {
+root_app.run(['$http','$rootScope','User', 'Book', function ($http, $rootScope, User, Book) {
     // console.log("cool");
 
     
@@ -61,7 +61,7 @@ root_app.run(['$http','$rootScope','Auth', 'Book', function ($http, $rootScope, 
     
     var global = new Globals();
     global.navFix();
-    global.stateUpdate($rootScope, Auth);
+    global.stateUpdate($rootScope, User);
     
     // Book.all(function (res) {
     //     console.log(res);

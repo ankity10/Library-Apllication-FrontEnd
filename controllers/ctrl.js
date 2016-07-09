@@ -85,6 +85,26 @@ root_app.controller('loginCtrl', ['$scope', '$http', '$location', '$rootScope', 
         })
     };
 
+    $scope.resetPassword = function () {
+
+        var formData = {
+            username : $("#email").val()
+        };
+        User.resetPassword(formData,function (res) {
+            if(res.success == false) {
+                alert(res.message);
+                console.log('in false');
+            }else if(res.success == true) {
+                console.log('in true');
+                alert(res.message);
+            }else{
+                alert(res.error);
+                console.log('in error');
+
+            }
+        })
+    };
+
     $scope.token = $localStorage.token;
 
 

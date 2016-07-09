@@ -52,8 +52,8 @@ root_app.factory('User', ['$http', '$localStorage', '$rootScope','settings', fun
         update: function (user, success, error) {
             $http.post(baseUrl + path + '/me', user).success(success).error(error);
         },
-        resetPassword: function () {
-            
+        resetPassword: function (data,success,error) {
+            $http.post(baseUrl + path + '/resetpassword',data).success(success).error(error);
         }
     }
 }]);
